@@ -6,29 +6,35 @@
 
 #include <ros/ros.h>
 #include <ros/console.h>
+
 #include <rviz/panel.h>   //plugin基类的头文件
 
 #include <QPushButton>
 #include <QTableWidget>
 #include <QCheckBox>
 
+#include <visualization_msgs/Marker.h>
 #include <geometry_msgs/PoseArray.h>
+#include <geometry_msgs/Point.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <std_msgs/String.h>
 #include <actionlib_msgs/GoalStatus.h>
 #include <actionlib_msgs/GoalStatusArray.h>
 #include <tf/transform_datatypes.h>
 
-class QLineEdit;
 
+//class QLineEdit;
 namespace navi_multi_goals_pub_rviz_plugin {
-// 所有的plugin都必须是rviz::Panel的子类
+
+
+
+    // 所有的plugin都必须是rviz::Panel的子类
     class TeleopPanel : public rviz::Panel {
 // 后边需要用到Qt的信号和槽，都是QObject的子类，所以需要声明Q_OBJECT宏
     Q_OBJECT
     public:
         // 构造函数，在类中会用到QWidget的实例来实现GUI界面，这里先初始化为0即可
-        TeleopPanel(QWidget *parent = 0);
+        explicit TeleopPanel(QWidget *parent = 0);
 
 
         // 公共槽.
@@ -38,6 +44,8 @@ namespace navi_multi_goals_pub_rviz_plugin {
         void setMaxNumGoal(const QString &maxNumGoal);
 
         void writePose(geometry_msgs::Pose pose);
+        void markPose(const geometry_msgs::PoseStamped::ConstPtr &pose);
+        void deleteMark();
 
         // 内部槽.
     protected Q_SLOTS:
@@ -60,7 +68,7 @@ namespace navi_multi_goals_pub_rviz_plugin {
 
         bool checkGoal(std::vector<actionlib_msgs::GoalStatus> status_list);  // check whether arrived the goal
 
-        void startSpin(); // spin for sub
+        static void startSpin(); // spin for sub
         // 内部变量.
     protected:
         QLineEdit *output_maxNumGoal_editor_;
@@ -73,7 +81,7 @@ namespace navi_multi_goals_pub_rviz_plugin {
 
         // The ROS node handle.
         ros::NodeHandle nh_;
-        ros::Publisher goal_pub_, cancel_pub_;
+        ros::Publisher goal_pub_, cancel_pub_, marker_pub_;
         ros::Subscriber goal_sub_, status_sub_;
 
 
@@ -81,7 +89,9 @@ namespace navi_multi_goals_pub_rviz_plugin {
         int curGoalIdx_ = 0, cycleCnt_ = 0;
         bool permit_ = false, cycle_ = false;
         geometry_msgs::PoseArray pose_array_;
+
         actionlib_msgs::GoalID cur_goalid_;
+
 
     };
 

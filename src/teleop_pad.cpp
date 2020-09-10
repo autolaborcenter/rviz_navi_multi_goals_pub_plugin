@@ -1,18 +1,15 @@
-#include <stdio.h>
+#include <cstdio>
+
+#include <ros/console.h>
 
 #include <QPainter>
 #include <QLineEdit>
 #include <QVBoxLayout>
-#include <QHBoxLayout>
 #include <QLabel>
 #include <QTimer>
-
-#include <math.h>
 #include <QDebug>
 #include <QtWidgets/QTableWidget>
-#include <QtWidgets/QTableWidgetItem>
-#include <tiff.h>
-#include <zconf.h>
+
 
 #include "teleop_pad.h"
 
@@ -31,6 +28,9 @@ namespace navi_multi_goals_pub_rviz_plugin {
         goal_pub_ = nh_.advertise<geometry_msgs::PoseStamped>("move_base_simple/goal", 1);
 
         cancel_pub_ = nh_.advertise<actionlib_msgs::GoalID>("move_base/cancel", 1);
+
+        marker_pub_ = nh_.advertise<visualization_msgs::Marker>("visualization_marker", 1);
+
         QVBoxLayout *root_layout = new QVBoxLayout;
         // 创建一个输入maxNumGoal命名的窗口
         QHBoxLayout *maxNumGoal_layout = new QHBoxLayout;
@@ -73,8 +73,8 @@ namespace navi_multi_goals_pub_rviz_plugin {
         connect(cycle_checkbox_, SIGNAL(clicked(bool)), this, SLOT(checkCycle()));
         connect(output_timer, SIGNAL(timeout()), this, SLOT(startSpin()));
 
-    }
 
+    }
 
 // 更新maxNumGoal命名
     void TeleopPanel::updateMaxNumGoal() {
@@ -106,6 +106,7 @@ namespace navi_multi_goals_pub_rviz_plugin {
         permit_ = false, cycle_ = false;
         poseArray_table_->clear();
         pose_array_.poses.clear();
+        deleteMark();
         poseArray_table_->setRowCount(maxNumGoal_);
         poseArray_table_->setColumnCount(3);
         poseArray_table_->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -114,6 +115,12 @@ namespace navi_multi_goals_pub_rviz_plugin {
         poseArray_table_->setHorizontalHeaderLabels(pose_header);
         cycle_checkbox_->setCheckState(Qt::Unchecked);
 
+    }
+
+    void TeleopPanel::deleteMark() {
+        visualization_msgs::Marker marker_delete;
+        marker_delete.action = visualization_msgs::Marker::DELETEALL;
+        marker_pub_.publish(marker_delete);
     }
 
     void TeleopPanel::updatePoseTable() {
@@ -125,17 +132,16 @@ namespace navi_multi_goals_pub_rviz_plugin {
         poseArray_table_->show();
     }
 
-
     void TeleopPanel::goalCntCB(const geometry_msgs::PoseStamped::ConstPtr &pose) {
         if (pose_array_.poses.size() < maxNumGoal_) {
             pose_array_.poses.push_back(pose->pose);
             pose_array_.header.frame_id = pose->header.frame_id;
             writePose(pose->pose);
+            markPose(pose);
         } else {
             ROS_ERROR("Beyond the maximum number of goals: %d", maxNumGoal_);
         }
     }
-
 
     void TeleopPanel::writePose(geometry_msgs::Pose pose) {
 
@@ -146,6 +152,26 @@ namespace navi_multi_goals_pub_rviz_plugin {
         poseArray_table_->setItem(pose_array_.poses.size() - 1, 2,
                                   new QTableWidgetItem(
                                           QString::number(tf::getYaw(pose.orientation) * 180.0 / 3.14, 'f', 2)));
+
+    }
+
+    void TeleopPanel::markPose(const geometry_msgs::PoseStamped::ConstPtr &pose) {
+        if (ros::ok()) {
+            visualization_msgs::Marker arrow;
+            arrow.header.frame_id = pose->header.frame_id;
+            arrow.ns = "navi_point_arrow";
+            arrow.action = visualization_msgs::Marker::ADD;
+            arrow.type = visualization_msgs::Marker::ARROW;
+            arrow.pose = pose->pose;
+            arrow.scale.x = 1.0;
+            arrow.scale.y = 0.2;
+            arrow.color.r = 1.0f;
+            arrow.color.g = 250;
+            arrow.color.b = 205;
+            arrow.color.a = 1.0;
+            arrow.id = pose_array_.poses.size();
+            marker_pub_.publish(arrow);
+        }
     }
 
     void TeleopPanel::checkCycle() {
@@ -191,10 +217,9 @@ namespace navi_multi_goals_pub_rviz_plugin {
         if (permit_) {
             geometry_msgs::PoseStamped goal;
             goal.header = pose_array_.header;
-            std::cout << curGoalIdx_ % pose_array_.poses.size() << std::endl;
             goal.pose = pose_array_.poses.at(curGoalIdx_ % pose_array_.poses.size());
             goal_pub_.publish(goal);
-            ROS_INFO("Navi to the Goal%d, in the %dth cycle", curGoalIdx_ % pose_array_.poses.size() + 1,
+            ROS_INFO("Navi to the Goal%lu, in the %dth cycle", curGoalIdx_ % pose_array_.poses.size() + 1,
                      cycleCnt_ + 1);
             bool even = ((cycleCnt_ + 1) % 2 != 0);
             QColor color_table;
@@ -202,7 +227,6 @@ namespace navi_multi_goals_pub_rviz_plugin {
             poseArray_table_->item(curGoalIdx_ % pose_array_.poses.size(), 0)->setBackgroundColor(color_table);
             poseArray_table_->item(curGoalIdx_ % pose_array_.poses.size(), 1)->setBackgroundColor(color_table);
             poseArray_table_->item(curGoalIdx_ % pose_array_.poses.size(), 2)->setBackgroundColor(color_table);
-            std::cout << "check" << std::endl;
             curGoalIdx_ += 1;
             cycleCnt_ = curGoalIdx_ / pose_array_.poses.size();
         }
@@ -226,17 +250,17 @@ namespace navi_multi_goals_pub_rviz_plugin {
     bool TeleopPanel::checkGoal(std::vector<actionlib_msgs::GoalStatus> status_list) {
         bool done;
         if (!status_list.empty()) {
-            for (int i = 0; i < status_list.size(); ++i) {
-                if (status_list[i].status == 3) {
+            for (auto &i : status_list) {
+                if (i.status == 3) {
                     done = true;
                     ROS_INFO("completed Goal%d", curGoalIdx_);
-                } else if (status_list[i].status == 4) {
+                } else if (i.status == 4) {
                     ROS_ERROR("Goal%d is Invalid, Navi to Next Goal%d", curGoalIdx_, curGoalIdx_ + 1);
                     return true;
-                } else if (status_list[i].status == 0) {
+                } else if (i.status == 0) {
                     done = true;
-                } else if (status_list[i].status == 1) {
-                    cur_goalid_ = status_list[i].goal_id;
+                } else if (i.status == 1) {
+                    cur_goalid_ = i.goal_id;
                     done = false;
                 } else done = false;
             }
@@ -253,6 +277,8 @@ namespace navi_multi_goals_pub_rviz_plugin {
             ros::spinOnce();
         }
     }
+
+
 
 
 
@@ -276,8 +302,8 @@ namespace navi_multi_goals_pub_rviz_plugin {
 } // end namespace navi-multi-goals-pub-rviz-plugin
 
 // 声明此类是一个rviz的插件
+
 #include <pluginlib/class_list_macros.h>
 
-PLUGINLIB_EXPORT_CLASS(navi_multi_goals_pub_rviz_plugin::TeleopPanel, rviz::Panel
-)
+PLUGINLIB_EXPORT_CLASS(navi_multi_goals_pub_rviz_plugin::TeleopPanel, rviz::Panel)
 // END_TUTORIAL

@@ -158,19 +158,26 @@ namespace navi_multi_goals_pub_rviz_plugin {
     void TeleopPanel::markPose(const geometry_msgs::PoseStamped::ConstPtr &pose) {
         if (ros::ok()) {
             visualization_msgs::Marker arrow;
-            arrow.header.frame_id = pose->header.frame_id;
+            visualization_msgs::Marker number;
+            arrow.header.frame_id = number.header.frame_id = pose->header.frame_id;
             arrow.ns = "navi_point_arrow";
-            arrow.action = visualization_msgs::Marker::ADD;
+            number.ns = "navi_point_number";
+            arrow.action = number.action = visualization_msgs::Marker::ADD;
             arrow.type = visualization_msgs::Marker::ARROW;
-            arrow.pose = pose->pose;
+            number.type = visualization_msgs::Marker::TEXT_VIEW_FACING;
+            arrow.pose = number.pose = pose->pose;
+            number.pose.position.z += 1.0;
             arrow.scale.x = 1.0;
             arrow.scale.y = 0.2;
-            arrow.color.r = 1.0f;
-            arrow.color.g = 250;
-            arrow.color.b = 205;
-            arrow.color.a = 1.0;
-            arrow.id = pose_array_.poses.size();
+            number.scale.z = 1.0;
+            arrow.color.r = number.color.r = 1.0f;
+            arrow.color.g = number.color.g = 0.98f;
+            arrow.color.b = number.color.b = 0.80f;
+            arrow.color.a = number.color.a = 1.0;
+            arrow.id = number.id = pose_array_.poses.size();
+            number.text = std::to_string(pose_array_.poses.size());
             marker_pub_.publish(arrow);
+            marker_pub_.publish(number);
         }
     }
 

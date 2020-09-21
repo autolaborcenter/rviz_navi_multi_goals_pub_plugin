@@ -195,6 +195,7 @@ namespace navi_multi_goals_pub_rviz_plugin {
 
     // start to navigate, and only command the first goal
     void MultiNaviGoalsPanel::startNavi() {
+        curGoalIdx_ = curGoalIdx_ % pose_array_.poses.size();
         if (!pose_array_.poses.empty() && curGoalIdx_ < maxNumGoal_) {
             geometry_msgs::PoseStamped goal;
             goal.header = pose_array_.header;

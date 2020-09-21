@@ -23,31 +23,23 @@
 #include <tf/transform_datatypes.h>
 
 
-//class QLineEdit;
 namespace navi_multi_goals_pub_rviz_plugin {
 
 
 
-    // 所有的plugin都必须是rviz::Panel的子类
-    class TeleopPanel : public rviz::Panel {
-// 后边需要用到Qt的信号和槽，都是QObject的子类，所以需要声明Q_OBJECT宏
+    class MultiNaviGoalsPanel : public rviz::Panel {
     Q_OBJECT
     public:
-        // 构造函数，在类中会用到QWidget的实例来实现GUI界面，这里先初始化为0即可
-        explicit TeleopPanel(QWidget *parent = 0);
+        explicit MultiNaviGoalsPanel(QWidget *parent = 0);
 
-
-        // 公共槽.
     public Q_SLOTS:
 
-        // 当用户输入topic的命名并按下回车后，回调用此槽来创建一个相应名称的topic publisher
         void setMaxNumGoal(const QString &maxNumGoal);
 
         void writePose(geometry_msgs::Pose pose);
         void markPose(const geometry_msgs::PoseStamped::ConstPtr &pose);
         void deleteMark();
 
-        // 内部槽.
     protected Q_SLOTS:
 
         void updateMaxNumGoal();             // update max number of goal
@@ -69,7 +61,6 @@ namespace navi_multi_goals_pub_rviz_plugin {
         bool checkGoal(std::vector<actionlib_msgs::GoalStatus> status_list);  // check whether arrived the goal
 
         static void startSpin(); // spin for sub
-        // 内部变量.
     protected:
         QLineEdit *output_maxNumGoal_editor_;
         QPushButton *output_maxNumGoal_button_, *output_reset_button_, *output_startNavi_button_, *output_cancel_button_;
@@ -77,7 +68,6 @@ namespace navi_multi_goals_pub_rviz_plugin {
         QCheckBox *cycle_checkbox_;
 
         QString output_maxNumGoal_;
-
 
         // The ROS node handle.
         ros::NodeHandle nh_;

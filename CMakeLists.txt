@@ -1,5 +1,5 @@
 ## BEGIN_TUTORIAL
-## This CMakeLists.txt file for rviz_plugin_tutorials builds both the TeleopPanel tutorial and the ImuDisplay tutorial.
+## This CMakeLists.txt file for rviz_plugin_tutorials builds both the MultiNaviGoalsPanel tutorial and the ImuDisplay tutorial.
 ##
 ## First start with some standard catkin stuff.
 cmake_minimum_required(VERSION 2.8.3)

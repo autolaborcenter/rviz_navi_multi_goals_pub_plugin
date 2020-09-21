@@ -1,6 +1,6 @@
 <library path="lib/libnavi_multi_goals_pub_rviz_plugin">
-    <class name="navi_multi_goals_pub_rviz_plugin/TeleopPanel"
-           type="navi_multi_goals_pub_rviz_plugin::TeleopPanel"
+    <class name="navi_multi_goals_pub_rviz_plugin/MultiNaviGoalsPanel"
+           type="navi_multi_goals_pub_rviz_plugin::MultiNaviGoalsPanel"
            base_class_type="rviz::Panel">
         <description>A panel widget allowing simple diff-drive style robot base control.</description>
     </class>

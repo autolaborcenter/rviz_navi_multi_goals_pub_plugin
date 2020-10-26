@@ -80,6 +80,7 @@ RViz 的左上角 Panels->Add New Panel-> Tool Property
 <div style="clear: both;"></div>
 
 <img src="images/intro9.png" />
+
 ***
 
 **做完以上操作后 Ctrl  + S 保存 RViz 配置，如忘记保存，则下次进来要重复操作。**

@@ -22,10 +22,10 @@
 进入 /home/autolabor/catkin_ws/src 目录，执行
 
 ```
-git clone https://github.com/autolaborcenter/navi_multi_goals_pub_rviz_plugin.git
+git clone https://github.com/autolaborcenter/rviz_navi_multi_goals_pub_plugin.git
 ```
 
-或访问 https://github.com/autolaborcenter/navi_multi_goals_pub_rviz_plugin.git 下载源代码，放入 /home/autolabor/catkin_ws/src 目录中
+或访问 https://github.com/autolaborcenter/rviz_navi_multi_goals_pub_plugin.git 下载源代码，放入 /home/autolabor/catkin_ws/src 目录中
 
 ![](images/download-file.png)
 

@@ -36,7 +36,7 @@ add_definitions(-DQT_NO_KEYWORDS)
 ## Here we specify the list of source files, including the output of
 ## the previous command which is stored in ``${MOC_FILES}``.
 set(SOURCE_FILES
-  src/teleop_pad.cpp 
+  src/multi_navi_goal_panel.cpp
   ${MOC_FILES}
 )
 

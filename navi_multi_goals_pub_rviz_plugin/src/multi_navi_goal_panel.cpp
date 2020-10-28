@@ -275,9 +275,6 @@ namespace navi_multi_goals_pub_rviz_plugin {
         if (!status_list.empty()) {
             goal_status = status_list.at(0).status;
             switch (goal_status) {
-                case 0:
-                    done = true;
-                    break;
                 case 3 :
                     done = true;
                     ROS_INFO("completed Goal%d", curGoalIdx_);

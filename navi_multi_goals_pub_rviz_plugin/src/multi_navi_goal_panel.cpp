@@ -61,7 +61,7 @@ namespace navi_multi_goals_pub_rviz_plugin {
         setLayout(root_layout);
         // set a Qtimer to start a spin for subscriptions
         QTimer *output_timer = new QTimer(this);
-        output_timer->start(500);
+        output_timer->start(200);
 
         // 设置信号与槽的连接
         connect(output_maxNumGoal_button_, SIGNAL(clicked()), this,

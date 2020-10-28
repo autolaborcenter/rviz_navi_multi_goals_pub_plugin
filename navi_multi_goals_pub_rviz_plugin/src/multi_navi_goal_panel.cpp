@@ -271,22 +271,25 @@ namespace navi_multi_goals_pub_rviz_plugin {
     //check the current state of goal
     bool MultiNaviGoalsPanel::checkGoal(std::vector<actionlib_msgs::GoalStatus> status_list) {
         bool done;
+        int goal_status;
         if (!status_list.empty()) {
-            for (auto &i : status_list) {
-                if (i.status == 3) {
+            goal_status = status_list.at(0).status;
+            switch (goal_status) {
+                case 0:
+                    done = true;
+                    break;
+                case 3 :
                     done = true;
                     ROS_INFO("completed Goal%d", curGoalIdx_);
-                } else if (i.status == 4) {
+                    break;
+                case 4:
                     ROS_ERROR("Goal%d is Invalid, Navi to Next Goal%d", curGoalIdx_, curGoalIdx_ + 1);
-                    return true;
-                } else if (i.status == 0) {
                     done = true;
-                } else if (i.status == 1) {
-                    cur_goalid_ = i.goal_id;
+                    break;
+                default :
                     done = false;
-                } else done = false;
+                    break;
             }
-
         } else {
             ROS_INFO("Please input the Navi Goal");
             done = false;
@@ -294,7 +297,7 @@ namespace navi_multi_goals_pub_rviz_plugin {
         return done;
     }
 
-    // spin for subscribing
+// spin for subscribing
     void MultiNaviGoalsPanel::startSpin() {
         if (ros::ok()) {
             ros::spinOnce();

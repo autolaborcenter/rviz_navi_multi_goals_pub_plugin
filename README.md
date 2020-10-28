@@ -44,7 +44,7 @@ git clone https://github.com/autolaborcenter/rviz_navi_multi_goals_pub_plugin.gi
 
 #### 4. 加载插件
 
-RViz 的左上角依次点击 Panels -> Add New Panel -> navi_multi_goals_pub_rviz_plugin -> TeleopPanel
+RViz 的左上角依次点击 Panels -> Add New Panel -> navi_multi_goals_pub_rviz_plugin -> MultiNaviGoalsPanel 
 
 <img style="float: left;" src="images/intro2.png" />
 <img style="float: right;" src="images/intro3.png" />

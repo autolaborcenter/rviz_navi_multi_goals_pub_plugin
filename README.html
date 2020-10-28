@@ -1061,48 +1061,48 @@ body .markdown-body
 <p>该功能包为SLAM 建图导航提供可发布多个目标点任务的导航方式。</p>
 <h3 id="_2">要求:<a class="headerlink" href="#_2" title="Permanent link"></a></h3>
 <p>必须基于 Autolabor SLAM导航使用</p>
-<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro.png" /></p>
+<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro.png" /></p>
 <h3 id="_3">一、安装与配置<a class="headerlink" href="#_3" title="Permanent link"></a></h3>
 <h4 id="1">1. 下载程序包<a class="headerlink" href="#1" title="Permanent link"></a></h4>
 <p>进入 /home/autolabor/catkin_ws/src 目录，执行</p>
-<div class="codehilite"><pre>git clone https://github.com/autolaborcenter/navi_multi_goals_pub_rviz_plugin.git
+<div class="codehilite"><pre>git clone https://github.com/autolaborcenter/rviz_navi_multi_goals_pub_plugin.git
 </pre></div>
 
-<p>或访问 <a href="https://github.com/autolaborcenter/navi_multi_goals_pub_rviz_plugin.git">https://github.com/autolaborcenter/navi_multi_goals_pub_rviz_plugin.git</a> 下载源代码，放入 /home/autolabor/catkin_ws/src 目录中</p>
-<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/download-file.png" /></p>
+<p>或访问 <a href="https://github.com/autolaborcenter/rviz_navi_multi_goals_pub_plugin.git">https://github.com/autolaborcenter/rviz_navi_multi_goals_pub_plugin.git</a> 下载源代码，放入 /home/autolabor/catkin_ws/src 目录中</p>
+<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/download-file.png" /></p>
 <h4 id="2">2. 编译<a class="headerlink" href="#2" title="Permanent link"></a></h4>
 <p>工作空间首次编译，请进入到 /home/autolabor/catkin_ws/script/common/，执行 <code>./rebuild</code> 编译脚本。</p>
 <p>如已执行过 rebuild 脚本，进入到/home/autolabor/catkin_ws/，根目录下执行 <code>catkin build</code> 即可。</p>
 <h4 id="3">3. 编译完成后，启动【开始导航】<a class="headerlink" href="#3" title="Permanent link"></a></h4>
 <p><strong>注：要求提前建好地图。</strong></p>
-<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro1.png" /></p>
+<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro1.png" /></p>
 <h4 id="4">4. 加载插件<a class="headerlink" href="#4" title="Permanent link"></a></h4>
-<p>RViz 的左上角依次点击 Panels -&gt; Add New Panel -&gt; navi_multi_goals_pub_rviz_plugin -&gt; TeleopPanel</p>
-<p><img style="float: left;" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro2.png" />
-<img style="float: right;" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro3.png" />
+<p>RViz 的左上角依次点击 Panels -&gt; Add New Panel -&gt; navi_multi_goals_pub_rviz_plugin -&gt; MultiNaviGoalsPanel </p>
+<p><img style="float: left;" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro2.png" />
+<img style="float: right;" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro3.png" />
 <div style="clear: both;"></div></p>
 <hr />
 <p><strong>加载完毕：</strong></p>
-<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro4.png" /></p>
+<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro4.png" /></p>
 <h4 id="5">5. 修改配置<a class="headerlink" href="#5" title="Permanent link"></a></h4>
 <h5 id="1-marker">1) 新增 marker （目标点标记）<a class="headerlink" href="#1-marker" title="Permanent link"></a></h5>
 <p>RViz 左侧 Display -&gt; add -&gt; Marker</p>
-<p><img style="float: left;" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro5.png" />
-<img style="float: right;" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro6.png" />
+<p><img style="float: left;" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro5.png" />
+<img style="float: right;" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro6.png" />
 <div style="clear: both;"></div></p>
 <hr />
 <h5 id="2-2d-nav-goal">2) 修改 2D Nav Goal 按钮话题<a class="headerlink" href="#2-2d-nav-goal" title="Permanent link"></a></h5>
 <p>RViz 的左上角 Panels-&gt;Add New Panel-&gt; Tool Property</p>
 <p>将 2D Nav Goal -&gt; Topic 修改为 /move_base_simple/goal_temp </p>
-<p><img style="float: left;" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro7.png" />
-<img style="float: right;" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro8.png" />
+<p><img style="float: left;" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro7.png" />
+<img style="float: right;" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro8.png" />
 <div style="clear: both;"></div></p>
-<p><img src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro9.png" /></p>
+<p><img src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro9.png" /></p>
 <hr />
 <p><strong>做完以上操作后 Ctrl  + S 保存 RViz 配置，如忘记保存，则下次进来要重复操作。</strong></p>
 <h3 id="_4">二、使用<a class="headerlink" href="#_4" title="Permanent link"></a></h3>
 <h3 id="_5">操作区说明<a class="headerlink" href="#_5" title="Permanent link"></a></h3>
-<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro10.png" /></p>
+<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro10.png" /></p>
 <p>① 可设置目标点的最大数量：要求所设置目标点个数不能大于该参数（可以小于）</p>
 <p>② 是否循环：若勾选，导航至最后一个目标点后，将重新导航至第一个目标点。例：1-&gt;2-&gt;3-&gt;1-&gt;2-&gt;3-&gt;···，该选项必须在开始导航前勾选</p>
 <p>③ 任务目标点列表： x/y/yaw，地图上给定目标点的位姿（xy坐标与航向角yaw)。</p>
@@ -1119,16 +1119,16 @@ body .markdown-body
 <p>点击开始导航，打开 rviz，使用键盘控制机器人运动，当环境特征与地图匹配完成后，机器人会定位到地图中对应的位置。</p>
 <h4 id="2_1">2. 设置任务<a class="headerlink" href="#2_1" title="Permanent link"></a></h4>
 <h5 id="1_2">1) 设置任务目标点个数，点击确认保存<a class="headerlink" href="#1_2" title="Permanent link"></a></h5>
-<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro16.png" /></p>
+<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro16.png" /></p>
 <h5 id="2_2">2) 设置目标点<a class="headerlink" href="#2_2" title="Permanent link"></a></h5>
 <p>点击ToolBar上的2D Nav Goal，在地图上给定目标点。（每次设置都需要先点击2D Nav Goal）</p>
 <p>目标点有朝向区分，箭头顶端为车头方向。</p>
-<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro11.png" /></p>
+<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro11.png" /></p>
 <h5 id="3_1">3) 点击开始导航，导航开始<a class="headerlink" href="#3_1" title="Permanent link"></a></h5>
-<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro12.png" /></p>
+<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro12.png" /></p>
 <p>已完成任务会变为红色（如下图）</p>
-<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro13.png" /></p>
-<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro14.png" /></p>
+<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro13.png" /></p>
+<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro14.png" /></p>
 <p>未勾选循环，单次任务完成后停止。</p>
 <p>勾选循环，单次任务完成后，会从最后一个目标点到第一个目标点，显示颜色为蓝色。</p>
-<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/multi_slam/navi_multi_goals_pub_rviz_plugin/images/intro15.png" /></p></article></body></html>
+<p><img alt="" src="/D:/%E5%B7%A5%E4%BD%9C%E9%A1%B9%E7%9B%AE/2020%E5%B9%B4/%E5%8D%8E%E6%B8%85/%E9%A1%B9%E7%9B%AE/%E4%BA%A7%E5%93%81/AP1/%E6%96%87%E6%A1%A3/rviz_navi_multi_goals_pub_plugin/images/intro15.png" /></p></article></body></html>

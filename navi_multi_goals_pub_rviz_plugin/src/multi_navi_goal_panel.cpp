@@ -61,7 +61,7 @@ namespace navi_multi_goals_pub_rviz_plugin {
         setLayout(root_layout);
         // set a Qtimer to start a spin for subscriptions
         QTimer *output_timer = new QTimer(this);
-        output_timer->start(200);
+        output_timer->start(500);
 
         // 设置信号与槽的连接
         connect(output_maxNumGoal_button_, SIGNAL(clicked()), this,
@@ -271,21 +271,20 @@ namespace navi_multi_goals_pub_rviz_plugin {
     //check the current state of goal
     bool MultiNaviGoalsPanel::checkGoal(std::vector<actionlib_msgs::GoalStatus> status_list) {
         bool done;
-        int goal_status;
         if (!status_list.empty()) {
-            goal_status = status_list.at(0).status;
-            switch (goal_status) {
-                case 3 :
+            for (auto &i : status_list) {
+                if (i.status == 3) {
                     done = true;
                     ROS_INFO("completed Goal%d", curGoalIdx_);
-                    break;
-                case 4:
+                } else if (i.status == 4) {
                     ROS_ERROR("Goal%d is Invalid, Navi to Next Goal%d", curGoalIdx_, curGoalIdx_ + 1);
+                    return true;
+                } else if (i.status == 0) {
                     done = true;
-                    break;
-                default :
+                } else if (i.status == 1) {
+                    cur_goalid_ = i.goal_id;
                     done = false;
-                    break;
+                } else done = false;
             }
         } else {
             ROS_INFO("Please input the Navi Goal");

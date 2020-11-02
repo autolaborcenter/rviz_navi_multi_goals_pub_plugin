@@ -278,12 +278,9 @@ namespace navi_multi_goals_pub_rviz_plugin {
     //check the current state of goal
     bool MultiNaviGoalsPanel::checkGoal(std::vector<actionlib_msgs::GoalStatus> status_list) {
         bool done;
-        std::ofstream status_out("status_out.txt");
         if (!status_list.empty()) {
-            status_out<<std::endl;
             for (auto &i : status_list) {
-                status_out<<i.status<<",";
-;                if (i.status == 3) {
+                if (i.status == 3) {
                     done = true;
                     ROS_INFO("completed Goal%d", curGoalIdx_);
                 } else if (i.status == 4) {

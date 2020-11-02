@@ -2,6 +2,9 @@
 
 #include <ros/console.h>
 
+#include <fstream>
+#include <sstream>
+
 #include <QPainter>
 #include <QLineEdit>
 #include <QVBoxLayout>
@@ -9,6 +12,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <QtWidgets/QTableWidget>
+#include <QtWidgets/qheaderview.h>
 
 
 #include "multi_navi_goal_panel.h"
@@ -112,6 +116,7 @@ namespace navi_multi_goals_pub_rviz_plugin {
         poseArray_table_->setRowCount(maxNumGoal_);
         poseArray_table_->setColumnCount(3);
         poseArray_table_->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        poseArray_table_->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
         QStringList pose_header;
         pose_header << "x" << "y" << "yaw";
         poseArray_table_->setHorizontalHeaderLabels(pose_header);
@@ -190,7 +195,7 @@ namespace navi_multi_goals_pub_rviz_plugin {
 
     // check whether it is in the cycling situation
     void MultiNaviGoalsPanel::checkCycle() {
-        cycle_ = true;
+        cycle_ = cycle_checkbox_->isChecked();
     }
 
     // start to navigate, and only command the first goal
@@ -202,9 +207,9 @@ namespace navi_multi_goals_pub_rviz_plugin {
             goal.pose = pose_array_.poses.at(curGoalIdx_);
             goal_pub_.publish(goal);
             ROS_INFO("Navi to the Goal%d", curGoalIdx_ + 1);
-            poseArray_table_->item(curGoalIdx_, 0)->setBackgroundColor(QColor(255, 0, 0));
-            poseArray_table_->item(curGoalIdx_, 1)->setBackgroundColor(QColor(255, 0, 0));
-            poseArray_table_->item(curGoalIdx_, 2)->setBackgroundColor(QColor(255, 0, 0));
+            poseArray_table_->item(curGoalIdx_, 0)->setBackgroundColor(QColor(255, 69, 0));
+            poseArray_table_->item(curGoalIdx_, 1)->setBackgroundColor(QColor(255, 69, 0));
+            poseArray_table_->item(curGoalIdx_, 2)->setBackgroundColor(QColor(255, 69, 0));
             curGoalIdx_ += 1;
             permit_ = true;
         } else {
@@ -220,9 +225,9 @@ namespace navi_multi_goals_pub_rviz_plugin {
             goal.pose = pose_array_.poses.at(curGoalIdx_);
             goal_pub_.publish(goal);
             ROS_INFO("Navi to the Goal%d", curGoalIdx_ + 1);
-            poseArray_table_->item(curGoalIdx_, 0)->setBackgroundColor(QColor(255, 0, 0));
-            poseArray_table_->item(curGoalIdx_, 1)->setBackgroundColor(QColor(255, 0, 0));
-            poseArray_table_->item(curGoalIdx_, 2)->setBackgroundColor(QColor(255, 0, 0));
+            poseArray_table_->item(curGoalIdx_, 0)->setBackgroundColor(QColor(255, 69, 0));
+            poseArray_table_->item(curGoalIdx_, 1)->setBackgroundColor(QColor(255, 69, 0));
+            poseArray_table_->item(curGoalIdx_, 2)->setBackgroundColor(QColor(255, 69, 0));
             curGoalIdx_ += 1;
             permit_ = true;
         } else {
@@ -242,7 +247,7 @@ namespace navi_multi_goals_pub_rviz_plugin {
                      cycleCnt_ + 1);
             bool even = ((cycleCnt_ + 1) % 2 != 0);
             QColor color_table;
-            if (even) color_table = QColor(255, 0, 0); else color_table = QColor(0, 0, 255);
+            if (even) color_table = QColor(255, 69, 0); else color_table = QColor(100, 149, 237);
             poseArray_table_->item(curGoalIdx_ % pose_array_.poses.size(), 0)->setBackgroundColor(color_table);
             poseArray_table_->item(curGoalIdx_ % pose_array_.poses.size(), 1)->setBackgroundColor(color_table);
             poseArray_table_->item(curGoalIdx_ % pose_array_.poses.size(), 2)->setBackgroundColor(color_table);
@@ -261,8 +266,10 @@ namespace navi_multi_goals_pub_rviz_plugin {
 
     // call back for listening current state
     void MultiNaviGoalsPanel::statusCB(const actionlib_msgs::GoalStatusArray::ConstPtr &statuses) {
-
-        if (checkGoal(statuses->status_list) && ros::ok() && permit_) {
+        bool arrived_pre = arrived_;
+        arrived_ = checkGoal(statuses->status_list);
+        if (arrived_) { ROS_ERROR("%d,%d", int(arrived_), int(arrived_pre)); }
+        if (arrived_ && arrived_ != arrived_pre && ros::ok() && permit_) {
             if (cycle_) cycleNavi();
             else completeNavi();
         }
@@ -271,9 +278,12 @@ namespace navi_multi_goals_pub_rviz_plugin {
     //check the current state of goal
     bool MultiNaviGoalsPanel::checkGoal(std::vector<actionlib_msgs::GoalStatus> status_list) {
         bool done;
+        std::ofstream status_out("status_out.txt");
         if (!status_list.empty()) {
+            status_out<<std::endl;
             for (auto &i : status_list) {
-                if (i.status == 3) {
+                status_out<<i.status<<",";
+;                if (i.status == 3) {
                     done = true;
                     ROS_INFO("completed Goal%d", curGoalIdx_);
                 } else if (i.status == 4) {

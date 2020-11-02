@@ -77,7 +77,7 @@ namespace navi_multi_goals_pub_rviz_plugin {
 
         int maxNumGoal_;
         int curGoalIdx_ = 0, cycleCnt_ = 0;
-        bool permit_ = false, cycle_ = false;
+        bool permit_ = false, cycle_ = false, arrived_ = false;
         geometry_msgs::PoseArray pose_array_;
 
         actionlib_msgs::GoalID cur_goalid_;

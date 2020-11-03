@@ -29,12 +29,21 @@ git clone https://github.com/autolaborcenter/rviz_navi_multi_goals_pub_plugin.gi
 
 ![](images/download-file.png)
 
+给新加入的文件添加操作权限，在/home/autolabor/catkin_ws 目录下，右键打开终端，执行
+
+`sudo chmod -R 777 /home/autolabor/catkin_ws/src/`
+
+输入密码 `autolabor`，回车
+
 #### 2. 编译
 
-工作空间首次编译，请进入到 /home/autolabor/catkin_ws/script/common/，执行 `./rebuild` 编译脚本。
+还是在 /home/autolabor/catkin_ws 目录下，终端执行
 
-如已执行过 rebuild 脚本，进入到/home/autolabor/catkin_ws/，根目录下执行 `catkin build` 即可。
+`sudo rm -rf build/ devel/ logs/ .catkin_tools/`
 
+输入密码 `autolabor`，回车，然后执行
+
+`catkin build`
 
 #### 3. 编译完成后，启动【开始导航】
 

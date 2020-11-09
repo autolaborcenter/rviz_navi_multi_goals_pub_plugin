@@ -28,7 +28,7 @@
 
 要在单点基础上实现多目标点导航的话，就要设计一个关于多个导航目标点消息geometry_msgs/PoseStamped的数据结构，并对多个目标点进行处理，完成导航。
 
-实现多点的方法有多重，在不打破 ROS Navigation 包的完整性的前提下，我选择在2D Nav Goal的 RViz节点和 /move_base 节点中间添加了一个话题 /move_base_simple/goal_temp，将原本发送给 /move_base_simple/goal 的消息，转发给/move_base_simple/goal_temp，通过此话题来积攒多个 2D Nav Goal（任务队列），并根据任务完成的状态反馈，按顺序将每个导航目标点消息 geometry_msgs/PoseStamped 再发送给话题/move_base_simple/goal，以完成多任务中的单次目标点的导航（如下图示）。
+实现多点的方法有多种，在不打破 ROS Navigation 包的完整性的前提下，我选择在2D Nav Goal的 RViz节点和 /move_base 节点中间添加了一个话题 /move_base_simple/goal_temp，将原本发送给 /move_base_simple/goal 的消息，转发给/move_base_simple/goal_temp，通过此话题来积攒多个 2D Nav Goal（任务队列），并根据任务完成的状态反馈，按顺序将每个导航目标点消息 geometry_msgs/PoseStamped 再发送给话题/move_base_simple/goal，以完成多任务中的单次目标点的导航（如下图示）。
 
 ![](images/dev2.jpg)
 

@@ -113,13 +113,13 @@ namespace navi_multi_goals_pub_rviz_plugin {
         explicit MultiNaviGoalsPanel(QWidget *parent = 0);
 
     public Q_SLOTS:
-        void setMaxNumGoal(const QString &maxNumGoal);
-        void writePose(geometry_msgs::Pose pose);
-        void markPose(const geometry_msgs::PoseStamped::ConstPtr &pose);
-        void deleteMark();
+        void setMaxNumGoal(const QString &maxNumGoal);//设置最大可设置的目标点数量
+        void writePose(geometry_msgs::Pose pose);//将目标点位姿写入任务列表
+        void markPose(const geometry_msgs::PoseStamped::ConstPtr &pose);//在地图中标记目标位姿
+        void deleteMark();//删除标记
     protected Q_SLOTS:
 
-        void updateMaxNumGoal();             // 最大可设置的目标点数量
+        void updateMaxNumGoal();             // 更新最大可设置的目标点数量
         void initPoseTable();               // 初始化目标点表格
 
         void updatePoseTable();             // 更新目标点表格
@@ -130,14 +130,14 @@ namespace navi_multi_goals_pub_rviz_plugin {
 
         void statusCB(const actionlib_msgs::GoalStatusArray::ConstPtr &statuses); // 状态子回调函数
 
-        void checkCycle();
+        void checkCycle();//确认循环
 
         void completeNavi();               // 第一个任务到达后，继续进行剩下任务点的导航任务
         void cycleNavi();
 
         bool checkGoal(std::vector<actionlib_msgs::GoalStatus> status_list);  // 检查是否到达目标点
 
-        static void startSpin(); // spin for sub
+        static void startSpin(); // 启用ROS订阅
     protected:
         QLineEdit *output_maxNumGoal_editor_;
         QPushButton *output_maxNumGoal_button_, *output_reset_button_, *output_startNavi_button_, *output_cancel_button_;

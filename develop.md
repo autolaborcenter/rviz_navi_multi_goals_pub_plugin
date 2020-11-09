@@ -22,7 +22,7 @@
 
 根据 NodeGraph 可以看到话题 /move_base_simple/goal 被导航包的节点 /move_base 订阅了，进而发给 Navigation 中的各个话题，完成导航。
 
-![](images/dev1.jpg)
+![](images/dev1.png)
 
 2. 如何基于单点实现多点导航？
 
@@ -42,11 +42,9 @@
 
 MultiNaviGoalsPanel是多点SLAM导航任务的可视化操作区，包括任务点列表、循环、重置、取消、开始任务。
 
-![](images/dev3.jpg)
-
 通过 RViz plugin 设计的Mark Display，能够显示的目标点的标号及箭头（朝向）。
 
-![](images/intro.png)
+![](images/dev3.png)
 
 
 ### 源代码
